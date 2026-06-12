@@ -1,0 +1,38 @@
+package com.cursobackend.aula6.application.user.usecase;
+
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Service;
+
+import com.cursobackend.aula6.application.user.dto.UserAuthRequestDTO;
+import com.cursobackend.aula6.domain.user.exception.DuplicateEmailException;
+import com.cursobackend.aula6.domain.user.model.Role;
+import com.cursobackend.aula6.domain.user.model.Users;
+import com.cursobackend.aula6.infrastructure.repository.UserRepository;
+
+@Service
+public class UserRegister {
+
+	private final UserRepository repository;
+	private PasswordEncoder encoder;
+	
+	public UserRegister(UserRepository repository, PasswordEncoder encoder) {
+		this.repository = repository;
+		this.encoder = encoder;
+	}
+	
+	public void execute(UserAuthRequestDTO request) {
+		
+		if (repository.findByEmail(request.email()).isPresent()) {
+			throw new DuplicateEmailException("Email já cadastrado");
+		}
+		
+		Users users = new Users();
+		users.setEmail(request.email());
+		users.setPassword(encoder.encode(request.password()));
+		users.setRole(Role.USER);
+		
+		repository.save(users);
+		
+	}
+	
+}
