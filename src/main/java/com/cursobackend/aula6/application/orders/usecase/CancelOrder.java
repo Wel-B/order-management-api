@@ -33,8 +33,6 @@ public class CancelOrder {
 	
 	public OrderResponseDTO execute(Long id) {
 		
-		log.info("Cancelling the order | ID = {} |", id);
-		
 		Orders orders = orderRepository.findById(id)
 				.orElseThrow(() -> new OrderNotFoundException("Pedido não encontrado"));
 		
@@ -52,6 +50,8 @@ public class CancelOrder {
 		if (!isOwner && !isAdmin) {
 			throw new ForbiddenActionException("Você não pode cancelar este pedido");
 		}
+		
+		log.info("Cancelling the order | ID = {} |", id);
 		
 		orders.cancel();
 		

@@ -4,6 +4,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.cursobackend.aula6.application.user.dto.UserAuthRequestDTO;
 import com.cursobackend.aula6.domain.orders.exception.ForbiddenActionException;
@@ -12,18 +13,20 @@ import com.cursobackend.aula6.domain.user.exception.UserNotFoundException;
 import com.cursobackend.aula6.domain.user.model.Users;
 import com.cursobackend.aula6.infrastructure.repository.UserRepository;
 
+import jakarta.validation.Valid;
+
 @Service
-public class UserDelete {
+public class UserInactive {
 
 	private UserRepository userRepository;
 	private PasswordEncoder encoder;
 	
-	public UserDelete(UserRepository userRepository, PasswordEncoder encoder) {
+	public UserInactive(UserRepository userRepository, PasswordEncoder encoder) {
 		this.userRepository = userRepository;
 		this.encoder = encoder;
 	}
 	
-	public void delete(UserAuthRequestDTO request) {
+	public void execute(@Valid @RequestBody UserAuthRequestDTO request) {
 		
 		Users users = userRepository.findByEmail(request.email())
 				.orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));
@@ -42,7 +45,9 @@ public class UserDelete {
 			throw new ForbiddenActionException("Você não pode eliminar essa conta");
 		}
 		
-		userRepository.delete(users);
+		users.inactiveUser();
+		
+		userRepository.save(users);
 	}
 	
 }

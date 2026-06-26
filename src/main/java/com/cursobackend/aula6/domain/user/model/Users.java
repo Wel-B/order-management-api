@@ -1,5 +1,9 @@
 package com.cursobackend.aula6.domain.user.model;
 
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -26,21 +30,29 @@ public class Users {
 	@Enumerated(EnumType.STRING)
 	private Role role;
 	
-	public Long getId() {
-		return id;
+	@Enumerated(EnumType.STRING)
+	private UserStatus status;
+	
+	@CreationTimestamp
+	@Column(updatable = false)
+	private LocalDateTime creationDate;
+	
+	public Users() {
+		this.status = UserStatus.ACTIVE;
 	}
 	
-	public String getEmail() {
-		return email;
-	}
+	public Long getId() {return id;}
 	
-	public String getPassword() {
-		return password;
-	}
+	public String getEmail() {return email;}
 	
-	public Role getRole() {
-		return role;
-	}
+	public String getPassword() {return password;}
+	
+	public Role getRole() {return role;}
+	
+	public UserStatus getStatus() {return status;}
+	
+	public LocalDateTime getCreationDate() {return creationDate;}
+	
 	
 	public void setEmail(String email) {
 		
@@ -69,4 +81,34 @@ public class Users {
 		this.role = role;
 	}
 	
+	public void inactiveUser() {
+		
+		if (status != UserStatus.ACTIVE) {
+			throw new IllegalStateException("Estado inválido");
+		}
+		
+		status = UserStatus.INACTIVE;
+	}
+	
+	public void deleteUser() {
+		
+		if (status != UserStatus.INACTIVE) {
+			throw new IllegalStateException("Estado inválido");
+		}
+		
+		status = UserStatus.DELETED;
+	}
+	
 }
+
+
+
+
+
+
+
+
+
+
+
+

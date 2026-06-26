@@ -8,8 +8,10 @@ import org.springframework.stereotype.Service;
 import com.cursobackend.aula6.application.orders.dto.OrderRequestDTO;
 import com.cursobackend.aula6.application.orders.dto.OrderResponseDTO;
 import com.cursobackend.aula6.application.orders.mapper.OrderMapper;
+import com.cursobackend.aula6.domain.orders.exception.InvalidStateException;
 import com.cursobackend.aula6.domain.orders.model.Orders;
 import com.cursobackend.aula6.domain.user.exception.UserNotFoundException;
+import com.cursobackend.aula6.domain.user.model.UserStatus;
 import com.cursobackend.aula6.domain.user.model.Users;
 import com.cursobackend.aula6.infrastructure.repository.OrderRepository;
 import com.cursobackend.aula6.infrastructure.repository.UserRepository;
@@ -31,17 +33,21 @@ public class CreateOrder {
 	
 	public OrderResponseDTO execute(OrderRequestDTO dto) {
 		
-		log.info("Creating the order | amount = {} |", dto.amount());
-		
-		Orders orders = new Orders();
-		orders.setAmount(dto.amount());
-		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		String email = auth.getName();
 		
 		Users users = userRepository.findByEmail(email)
 				.orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));
+		
+		if (users.getStatus() != UserStatus.ACTIVE) {
+			throw new InvalidStateException("Conta inactiva");
+		}
+
+		log.info("Creating the order | amount = {} |", dto.amount());
+		
+		Orders orders = new Orders();
+		orders.setAmount(dto.amount());
 		
 		orders.setUser(users);
 		

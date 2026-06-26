@@ -1,5 +1,7 @@
 package com.cursobackend.aula6.application.user.dto;
 
-public record UserAuthResponseDTO(String token, String username, String role) {
+import java.time.LocalDateTime;
 
+public record UserAuthResponseDTO(Long id, String Status, LocalDateTime creationDate) {
+	
 }

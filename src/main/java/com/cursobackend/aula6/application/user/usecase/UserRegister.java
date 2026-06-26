@@ -31,8 +31,7 @@ public class UserRegister {
 		users.setPassword(encoder.encode(request.password()));
 		users.setRole(Role.USER);
 		
-		userRepository.save(users);
-		
+		userRepository.save(users);	
 	}
 	
 }

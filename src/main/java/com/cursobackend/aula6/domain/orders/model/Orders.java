@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 import org.hibernate.annotations.CreationTimestamp;
 
 import com.cursobackend.aula6.domain.orders.exception.InvalidStateException;
+import com.cursobackend.aula6.domain.user.model.UserStatus;
 import com.cursobackend.aula6.domain.user.model.Users;
 
 import jakarta.persistence.Column;
@@ -54,6 +55,7 @@ public class Orders {
 	public LocalDateTime getCreationDate() {return creationDate;}
 	
 	public void putInAnalyze() {
+		
 		if (status != OrderStatus.REQUESTED) {
 			throw new InvalidStateException("Pedido não pode entrar em análise");
 		}
@@ -61,6 +63,7 @@ public class Orders {
 	}
 	
 	public void approve() {
+		
 		if (status != OrderStatus.ANALYZING) {
 			throw new InvalidStateException("Pedido não pode ser aprovado");
 		}
@@ -68,6 +71,7 @@ public class Orders {
 	}
 	
 	public void reject() {
+		
 		if (status != OrderStatus.ANALYZING) {
 			throw new InvalidStateException("Pedido não pode ser rejeitado");
 		}
@@ -75,6 +79,7 @@ public class Orders {
 	}
 	
 	public void manualAnalyze() {
+		
 		if (status != OrderStatus.ANALYZING) {
 			throw new InvalidStateException("Pedido não pode entrar em análise manual");
 		}
@@ -82,6 +87,11 @@ public class Orders {
 	}
 	
 	public void cancel() {
+		
+		if (users.getStatus() != UserStatus.ACTIVE) {
+			throw new InvalidStateException("Conta inactiva");
+		}
+		
 		if (status != OrderStatus.REQUESTED) {
 			throw new InvalidStateException("Pedido não pode ser cancelado");
 		}
