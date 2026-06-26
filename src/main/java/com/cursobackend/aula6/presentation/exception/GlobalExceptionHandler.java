@@ -27,7 +27,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(OrderNotFoundException.class)
 	public ResponseEntity<ExceptionErrorResponse> handleOrderNotFound(OrderNotFoundException e) {
 		
-		log.warn("Busca inválida: {}", e.getMessage());
+		log.warn("Order not found: {}", e.getMessage());
 		
 		ExceptionErrorResponse error = new ExceptionErrorResponse(
 				"ORDER_NOT_FOUND", e.getMessage(), LocalDateTime.now()
@@ -49,7 +49,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(InvalidStateException.class)
 	public ResponseEntity<ExceptionErrorResponse> handleBusiness(InvalidStateException e) {
 		
-		log.warn("Estado invalido: {}", e.getMessage());
+		log.warn("Invalid state: {}", e.getMessage());
 		
 		ExceptionErrorResponse error = new ExceptionErrorResponse(
 				"INVALID_STATE", e.getMessage(), LocalDateTime.now()
@@ -61,7 +61,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(InvalidCredentialsException.class)
 	public ResponseEntity<ExceptionErrorResponse> handleInvalidCredentials(InvalidCredentialsException e) {
 		
-		log.warn("Invalid credencial {}", e.getMessage());
+		log.warn("Invalid credential {}", e.getMessage());
 		
 		ExceptionErrorResponse error = new ExceptionErrorResponse(
 				"INVALID_CREDENTIAL", e.getMessage(), LocalDateTime.now()
@@ -83,7 +83,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(Exception.class)
 	public ResponseEntity<ExceptionErrorResponse> handleGeneric(Exception e) {
 		
-		log.error("Erro inesperado", e);
+		log.error("Internal error", e);
 		
 		ExceptionErrorResponse error = new ExceptionErrorResponse(
 				"INTERNAL_ERROR", "Ocorreu um erro inesperado", LocalDateTime.now()
@@ -115,7 +115,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ValidationErrorResponse> handleValidationError(MethodArgumentNotValidException e) {
 		
-		log.warn("Erro de validção: {}", e.getMessage());
+		log.warn("validation error: {}", e.getMessage());
 		
 		List<FieldValidationErrorResponse> fields = e.getBindingResult()
 				.getFieldErrors()

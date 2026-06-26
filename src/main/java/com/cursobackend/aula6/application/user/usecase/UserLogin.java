@@ -11,21 +11,21 @@ import com.cursobackend.aula6.infrastructure.repository.UserRepository;
 @Service
 public class UserLogin {
 
-	private UserRepository repository;
+	private UserRepository userRepository;
 	private PasswordEncoder encoder;
 	
-	public UserLogin(UserRepository repository, PasswordEncoder encoder) {
-		this.repository = repository;
+	public UserLogin(UserRepository userRepository, PasswordEncoder encoder) {
+		this.userRepository = userRepository;
 		this.encoder = encoder;
 	}
 	
 	public Users execute(UserAuthRequestDTO request) {
 		
-		Users users = repository.findByEmail(request.email())
-				.orElseThrow(() -> new InvalidCredentialsException("Invalid credencials"));
+		Users users = userRepository.findByEmail(request.email())
+				.orElseThrow(() -> new InvalidCredentialsException("Credencial inválida"));
 		
 		if(!encoder.matches(request.password(), users.getPassword())) {
-			throw new InvalidCredentialsException("Invalid credencials");
+			throw new InvalidCredentialsException("Credencial inválida");
 		}
 		
 		return users;

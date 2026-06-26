@@ -12,17 +12,17 @@ import com.cursobackend.aula6.infrastructure.repository.UserRepository;
 @Service
 public class UserRegister {
 
-	private final UserRepository repository;
+	private final UserRepository userRepository;
 	private PasswordEncoder encoder;
 	
-	public UserRegister(UserRepository repository, PasswordEncoder encoder) {
-		this.repository = repository;
+	public UserRegister(UserRepository userRepository, PasswordEncoder encoder) {
+		this.userRepository = userRepository;
 		this.encoder = encoder;
 	}
 	
 	public void execute(UserAuthRequestDTO request) {
 		
-		if (repository.findByEmail(request.email()).isPresent()) {
+		if (userRepository.findByEmail(request.email()).isPresent()) {
 			throw new DuplicateEmailException("Email já cadastrado");
 		}
 		
@@ -31,7 +31,7 @@ public class UserRegister {
 		users.setPassword(encoder.encode(request.password()));
 		users.setRole(Role.USER);
 		
-		repository.save(users);
+		userRepository.save(users);
 		
 	}
 	

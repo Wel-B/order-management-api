@@ -33,3 +33,5 @@ build/
 .vscode/
 
 .env
+.mv.db
+.trace.db

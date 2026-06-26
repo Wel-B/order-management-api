@@ -40,7 +40,7 @@ class OrderControllerIntegrationTest {
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.status").exists());
 		
-		/* Apenas criação
+		/* Just creating order
 		mockMvc.perform(post("/orders")
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json))
@@ -48,7 +48,7 @@ class OrderControllerIntegrationTest {
 				.andExpect(jsonPath("$.status").value("REQUESTED"));
 		/*
 	
-		/* Criação e anlize
+		/* Creating and analyze
 		String response = mockMvc.perform(post("/orders")
 				.contentType(MediaType.APPLICATION_JSON).content(json)).andReturn().getResponse().getContentAsString();
 		  

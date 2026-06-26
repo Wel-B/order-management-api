@@ -15,7 +15,7 @@ import com.cursobackend.aula6.infrastructure.repository.OrderRepository;
 @Service
 public class AnalyzeOrder {
 
-	private OrderRepository repository;
+	private OrderRepository orderRepository;
 	private CreditPolicy policy;
 	private OrderMapper mapper;
 	private CreditScoreProvider creditScoreProvider;
@@ -23,12 +23,12 @@ public class AnalyzeOrder {
 	private static final Logger log = org.slf4j.LoggerFactory.getLogger(AnalyzeOrder.class);
 	
 	public AnalyzeOrder(
-			OrderRepository repository,
+			OrderRepository orderRepository,
 			CreditPolicy policy,
 			OrderMapper mapper,
 			CreditScoreProvider creditScoreProvider) {
 		
-		this.repository = repository;
+		this.orderRepository = orderRepository;
 		this.policy = policy;
 		this.mapper = mapper;
 		this.creditScoreProvider = creditScoreProvider;
@@ -36,16 +36,16 @@ public class AnalyzeOrder {
 	
 	public OrderResponseDTO execute(Long id) {
 		
-		log.info("Analizando pedido | ID = {} |", id);
+		log.info("Analyzing the order | ID = {} |", id);
 		
-		Orders orders = repository.findById(id)
+		Orders orders = orderRepository.findById(id)
 				.orElseThrow(() -> new OrderNotFoundException("Pedido não encontrado"));
 		
 		orders.putInAnalyze();
 		
 		int score = creditScoreProvider.getScore();
 		
-		log.info("Score obtido | score = {} |", score);
+		log.info("Calculating score | score = {} |", score);
 		
 		CreditDecision decision = policy.avaluate(score);
 		
@@ -55,9 +55,9 @@ public class AnalyzeOrder {
 			case MANUAL_ANALYZE -> orders.manualAnalyze();
 		}
 		
-		log.info("Decisão tomada | status = {} |", orders.getStatus());
+		log.info("Decision made | status = {} |", orders.getStatus());
 		
-		repository.save(orders);
+		orderRepository.save(orders);
 		
 		return mapper.toResponseDTO(orders);
 	}

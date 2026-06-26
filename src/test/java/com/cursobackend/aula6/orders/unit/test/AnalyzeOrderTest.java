@@ -22,7 +22,7 @@ import com.cursobackend.aula6.infrastructure.repository.OrderRepository;
 public class AnalyzeOrderTest {
 	
 	private AnalyzeOrder analyzeOrder;
-	private OrderRepository repository;
+	private OrderRepository orderRepository;
 	private CreditScoreProvider creditScoreProvider;
 	private CreditPolicy policy;
 	private OrderMapper mapper;
@@ -30,13 +30,13 @@ public class AnalyzeOrderTest {
 	@BeforeEach
 	void setup() {
 		
-		repository = mock(OrderRepository.class);
+		orderRepository = mock(OrderRepository.class);
 		creditScoreProvider = mock(CreditScoreProvider.class);
 		policy = mock(CreditPolicy.class);
 		
 		mapper = new OrderMapper();
 		
-		analyzeOrder = new AnalyzeOrder(repository, policy, mapper, creditScoreProvider);	
+		analyzeOrder = new AnalyzeOrder(orderRepository, policy, mapper, creditScoreProvider);	
 	}
 	
 	@Test
@@ -44,7 +44,7 @@ public class AnalyzeOrderTest {
 		
 		Orders orders = new Orders();
 		
-		when(repository.findById(1L)).thenReturn(Optional.of(orders));
+		when(orderRepository.findById(1L)).thenReturn(Optional.of(orders));
 		
 		when(creditScoreProvider.getScore()).thenReturn(850);
 		
@@ -54,7 +54,7 @@ public class AnalyzeOrderTest {
 		
 		assertEquals("APPROVED", result.status());
 		
-		verify(repository).save(orders);
+		verify(orderRepository).save(orders);
 		
 	}
 	

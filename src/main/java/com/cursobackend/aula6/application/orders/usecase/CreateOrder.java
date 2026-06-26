@@ -17,21 +17,21 @@ import com.cursobackend.aula6.infrastructure.repository.UserRepository;
 @Service
 public class CreateOrder {
 
-	private OrderRepository repository;
+	private OrderRepository orderRepository;
 	private UserRepository userRepository;
 	private OrderMapper mapper;
 	
 	private static final Logger log = org.slf4j.LoggerFactory.getLogger(CreateOrder.class);
 	
-	public CreateOrder(OrderRepository repository, UserRepository userRepository, OrderMapper mapper) {
-		this.repository = repository;
+	public CreateOrder(OrderRepository orderRepository, UserRepository userRepository, OrderMapper mapper) {
+		this.orderRepository = orderRepository;
 		this.userRepository = userRepository;
 		this.mapper = mapper;
 	}
 	
 	public OrderResponseDTO execute(OrderRequestDTO dto) {
 		
-		log.info("Criando pedido | amount = {} |", dto.amount());
+		log.info("Creating the order | amount = {} |", dto.amount());
 		
 		Orders orders = new Orders();
 		orders.setAmount(dto.amount());
@@ -45,9 +45,9 @@ public class CreateOrder {
 		
 		orders.setUser(users);
 		
-		repository.save(orders);
+		orderRepository.save(orders);
 		
-		log.info("Pedido Criado com sucesso | ID = {} | status = {} |", orders.getId(), orders.getStatus());
+		log.info("Order created successfully | ID = {} | status = {} |", orders.getId(), orders.getStatus());
 		
 		return mapper.toResponseDTO(orders);
 	}

@@ -19,23 +19,23 @@ import com.cursobackend.aula6.infrastructure.repository.UserRepository;
 @Service
 public class CancelOrder {
 
-	private OrderRepository repository;
+	private OrderRepository orderRepository;
 	private UserRepository userRepository;
 	private OrderMapper mapper;
 	
 	private static final Logger log = org.slf4j.LoggerFactory.getLogger(CancelOrder.class);
 	
-	public CancelOrder(OrderRepository repository, UserRepository userRepository, OrderMapper mapper) {
-		this.repository = repository;
+	public CancelOrder(OrderRepository orderRepository, UserRepository userRepository, OrderMapper mapper) {
+		this.orderRepository = orderRepository;
 		this.userRepository = userRepository;
 		this.mapper = mapper;
 	}
 	
 	public OrderResponseDTO execute(Long id) {
 		
-		log.info("Cancelando pedido | ID = {} |", id);
+		log.info("Cancelling the order | ID = {} |", id);
 		
-		Orders orders = repository.findById(id)
+		Orders orders = orderRepository.findById(id)
 				.orElseThrow(() -> new OrderNotFoundException("Pedido não encontrado"));
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -55,9 +55,9 @@ public class CancelOrder {
 		
 		orders.cancel();
 		
-		repository.save(orders);
+		orderRepository.save(orders);
 		
-		log.info("Pedido cancelado | status = {} |", orders.getStatus());
+		log.info("Order canceled | status = {} |", orders.getStatus());
 		
 		return mapper.toResponseDTO(orders);
 	}

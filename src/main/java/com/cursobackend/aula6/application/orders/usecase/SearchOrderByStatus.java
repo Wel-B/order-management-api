@@ -13,21 +13,21 @@ import com.cursobackend.aula6.infrastructure.repository.OrderRepository;
 @Service
 public class SearchOrderByStatus {
 
-	private OrderRepository repository;
+	private OrderRepository orderRepository;
 	private OrderMapper mapper;
 	
 	private static final Logger log = org.slf4j.LoggerFactory.getLogger(SearchOrderByStatus.class);
 	
-	public SearchOrderByStatus(OrderRepository repository, OrderMapper mapper) {
-		this.repository = repository;
+	public SearchOrderByStatus(OrderRepository orderRepository, OrderMapper mapper) {
+		this.orderRepository = orderRepository;
 		this.mapper = mapper;
 	}
 	
 	public List<OrderResponseDTO> execute(OrderStatus status) {
 		
-		log.info("Buscando status | status = {} |", status);
+		log.info("Getting status | status = {} |", status);
 		
-		return repository.findByStatus(status)
+		return orderRepository.findByStatus(status)
 				.stream()
 				.map(mapper::toResponseDTO)
 				.toList();
