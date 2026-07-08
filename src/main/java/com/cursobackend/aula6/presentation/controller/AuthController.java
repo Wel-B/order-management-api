@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.cursobackend.aula6.application.user.dto.UserAuthRequestDTO;
 import com.cursobackend.aula6.application.user.usecase.UserLogin;
 import com.cursobackend.aula6.application.user.usecase.UserRegister;
-import com.cursobackend.aula6.domain.user.model.Users;
-import com.cursobackend.aula6.infrastructure.security.JwtService;
 
 import jakarta.validation.Valid;
 
@@ -26,10 +24,8 @@ public class AuthController {
 
 	private UserRegister register;
 	private UserLogin login;
-	private JwtService jwtService;
 	
-	public AuthController(UserRegister register, UserLogin login, JwtService jwtService) {
-		this.jwtService = jwtService;
+	public AuthController(UserRegister register, UserLogin login) {
 		this.login = login;
 		this.register = register;
 	}
@@ -44,14 +40,7 @@ public class AuthController {
 	@PostMapping("/login")
 	public Map<String, String> login(@Valid @RequestBody UserAuthRequestDTO request) {
 		
-		Users users = login.execute(request);
-		
-		String token = jwtService.generateToken(
-				users.getEmail(),
-				users.getRole()
-		);
-		
-		return Map.of("token", token);
+		return login.execute(request);
 	}
 	
 	@PostMapping("/logout")
