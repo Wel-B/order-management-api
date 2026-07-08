@@ -38,9 +38,9 @@ public class AuthController {
 	}
 	
 	@PostMapping("/login")
-	public Map<String, String> login(@Valid @RequestBody UserAuthRequestDTO request) {
+	public ResponseEntity<Map<String, String>> login(@Valid @RequestBody UserAuthRequestDTO request) {
 		
-		return login.execute(request);
+		return ResponseEntity.ok(login.execute(request));
 	}
 	
 	@PostMapping("/logout")
