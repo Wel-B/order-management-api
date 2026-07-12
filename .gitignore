@@ -32,6 +32,8 @@ build/
 ### VS Code ###
 .vscode/
 
-.env
+.env.dev
+.env.prod
+Dockerfile
 testdb.mv.db
 testdb.trace.db
