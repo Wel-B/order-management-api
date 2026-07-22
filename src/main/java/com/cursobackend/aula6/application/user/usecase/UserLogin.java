@@ -9,15 +9,15 @@ import com.cursobackend.aula6.application.user.dto.UserAuthRequestDTO;
 import com.cursobackend.aula6.domain.user.exception.InvalidCredentialsException;
 import com.cursobackend.aula6.domain.user.exception.UserNotFoundException;
 import com.cursobackend.aula6.domain.user.model.Users;
-import com.cursobackend.aula6.infrastructure.repository.UserRepository;
+import com.cursobackend.aula6.domain.user.repository.UserRepository;
 import com.cursobackend.aula6.infrastructure.security.JwtService;
 
 @Service
 public class UserLogin {
 
-	private UserRepository userRepository;
-	private PasswordEncoder encoder;
-	private JwtService jwtService;
+	private final UserRepository userRepository;
+	private final PasswordEncoder encoder;
+	private final JwtService jwtService;
 	
 	public UserLogin(UserRepository userRepository, PasswordEncoder encoder, JwtService jwtService) {
 		this.userRepository = userRepository;

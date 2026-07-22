@@ -11,15 +11,15 @@ import com.cursobackend.aula6.domain.orders.exception.ForbiddenActionException;
 import com.cursobackend.aula6.domain.user.exception.InvalidCredentialsException;
 import com.cursobackend.aula6.domain.user.exception.UserNotFoundException;
 import com.cursobackend.aula6.domain.user.model.Users;
-import com.cursobackend.aula6.infrastructure.repository.UserRepository;
+import com.cursobackend.aula6.domain.user.repository.UserRepository;
 
 import jakarta.validation.Valid;
 
 @Service
 public class UserInactive {
 
-	private UserRepository userRepository;
-	private PasswordEncoder encoder;
+	private final UserRepository userRepository;
+	private final PasswordEncoder encoder;
 	
 	public UserInactive(UserRepository userRepository, PasswordEncoder encoder) {
 		this.userRepository = userRepository;

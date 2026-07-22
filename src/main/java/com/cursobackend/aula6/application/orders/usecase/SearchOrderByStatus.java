@@ -10,16 +10,16 @@ import org.springframework.stereotype.Service;
 import com.cursobackend.aula6.application.orders.dto.OrderResponseDTO;
 import com.cursobackend.aula6.application.orders.mapper.OrderMapper;
 import com.cursobackend.aula6.domain.orders.model.OrderStatus;
+import com.cursobackend.aula6.domain.orders.repository.OrderRepository;
 import com.cursobackend.aula6.domain.user.exception.UserNotFoundException;
-import com.cursobackend.aula6.infrastructure.repository.OrderRepository;
-import com.cursobackend.aula6.infrastructure.repository.UserRepository;
+import com.cursobackend.aula6.domain.user.repository.UserRepository;
 
 @Service
 public class SearchOrderByStatus {
 
-	private OrderRepository orderRepository;
-	private UserRepository userRepository;
-	private OrderMapper mapper;
+	private final OrderRepository orderRepository;
+	private final UserRepository userRepository;
+	private final OrderMapper mapper;
 	
 	private static final Logger log = org.slf4j.LoggerFactory.getLogger(SearchOrderByStatus.class);
 	

@@ -7,13 +7,13 @@ import com.cursobackend.aula6.application.user.dto.UserAuthRequestDTO;
 import com.cursobackend.aula6.domain.user.exception.DuplicateEmailException;
 import com.cursobackend.aula6.domain.user.model.Role;
 import com.cursobackend.aula6.domain.user.model.Users;
-import com.cursobackend.aula6.infrastructure.repository.UserRepository;
+import com.cursobackend.aula6.domain.user.repository.UserRepository;
 
 @Service
 public class UserRegister {
 
 	private final UserRepository userRepository;
-	private PasswordEncoder encoder;
+	private final PasswordEncoder encoder;
 	
 	public UserRegister(UserRepository userRepository, PasswordEncoder encoder) {
 		this.userRepository = userRepository;

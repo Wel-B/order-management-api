@@ -10,15 +10,15 @@ import com.cursobackend.aula6.domain.orders.exception.OrderNotFoundException;
 import com.cursobackend.aula6.domain.orders.model.Orders;
 import com.cursobackend.aula6.domain.orders.policy.CreditDecision;
 import com.cursobackend.aula6.domain.orders.policy.CreditPolicy;
-import com.cursobackend.aula6.infrastructure.repository.OrderRepository;
+import com.cursobackend.aula6.domain.orders.repository.OrderRepository;
 
 @Service
 public class AnalyzeOrder {
 
-	private OrderRepository orderRepository;
-	private CreditPolicy policy;
-	private OrderMapper mapper;
-	private CreditScoreProvider creditScoreProvider;
+	private final OrderRepository orderRepository;
+	private final CreditPolicy policy;
+	private final OrderMapper mapper;
+	private final CreditScoreProvider creditScoreProvider;
 	
 	private static final Logger log = org.slf4j.LoggerFactory.getLogger(AnalyzeOrder.class);
 	

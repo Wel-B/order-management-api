@@ -10,18 +10,18 @@ import com.cursobackend.aula6.application.orders.mapper.OrderMapper;
 import com.cursobackend.aula6.domain.orders.exception.ForbiddenActionException;
 import com.cursobackend.aula6.domain.orders.exception.OrderNotFoundException;
 import com.cursobackend.aula6.domain.orders.model.Orders;
+import com.cursobackend.aula6.domain.orders.repository.OrderRepository;
 import com.cursobackend.aula6.domain.user.exception.UserNotFoundException;
 import com.cursobackend.aula6.domain.user.model.Role;
 import com.cursobackend.aula6.domain.user.model.Users;
-import com.cursobackend.aula6.infrastructure.repository.OrderRepository;
-import com.cursobackend.aula6.infrastructure.repository.UserRepository;
+import com.cursobackend.aula6.domain.user.repository.UserRepository;
 
 @Service
 public class CancelOrder {
 
-	private OrderRepository orderRepository;
-	private UserRepository userRepository;
-	private OrderMapper mapper;
+	private final OrderRepository orderRepository;
+	private final UserRepository userRepository;
+	private final OrderMapper mapper;
 	
 	private static final Logger log = org.slf4j.LoggerFactory.getLogger(CancelOrder.class);
 	

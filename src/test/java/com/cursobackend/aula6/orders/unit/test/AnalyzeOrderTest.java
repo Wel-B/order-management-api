@@ -17,7 +17,7 @@ import com.cursobackend.aula6.application.service.CreditScoreProvider;
 import com.cursobackend.aula6.domain.orders.model.Orders;
 import com.cursobackend.aula6.domain.orders.policy.CreditDecision;
 import com.cursobackend.aula6.domain.orders.policy.CreditPolicy;
-import com.cursobackend.aula6.infrastructure.repository.OrderRepository;
+import com.cursobackend.aula6.domain.orders.repository.OrderRepository;
 
 public class AnalyzeOrderTest {
 	
