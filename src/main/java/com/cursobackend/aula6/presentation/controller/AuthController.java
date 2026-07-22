@@ -1,7 +1,5 @@
 package com.cursobackend.aula6.presentation.controller;
 
-import java.util.Map;
-
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -12,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cursobackend.aula6.application.user.dto.UserAuthRequestDTO;
+import com.cursobackend.aula6.application.user.dto.UserAuthResponseDTO;
 import com.cursobackend.aula6.application.user.usecase.UserLogin;
 import com.cursobackend.aula6.application.user.usecase.UserRegister;
 
@@ -38,7 +37,7 @@ public class AuthController {
 	}
 	
 	@PostMapping("/login")
-	public ResponseEntity<Map<String, String>> login(@Valid @RequestBody UserAuthRequestDTO request) {
+	public ResponseEntity<UserAuthResponseDTO> login(@Valid @RequestBody UserAuthRequestDTO request) {
 		
 		return ResponseEntity.ok(login.execute(request));
 	}

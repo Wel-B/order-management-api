@@ -1,11 +1,11 @@
 package com.cursobackend.aula6.application.user.usecase;
 
-import java.util.Map;
-
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.cursobackend.aula6.application.user.dto.UserAuthRequestDTO;
+import com.cursobackend.aula6.application.user.dto.UserAuthResponseDTO;
+import com.cursobackend.aula6.application.user.mapper.UserMapper;
 import com.cursobackend.aula6.domain.user.exception.InvalidCredentialsException;
 import com.cursobackend.aula6.domain.user.exception.UserNotFoundException;
 import com.cursobackend.aula6.domain.user.model.Users;
@@ -16,16 +16,18 @@ import com.cursobackend.aula6.infrastructure.security.JwtService;
 public class UserLogin {
 
 	private final UserRepository userRepository;
+	private final UserMapper mapper;
 	private final PasswordEncoder encoder;
 	private final JwtService jwtService;
 	
-	public UserLogin(UserRepository userRepository, PasswordEncoder encoder, JwtService jwtService) {
+	public UserLogin(UserRepository userRepository, UserMapper mapper, PasswordEncoder encoder, JwtService jwtService) {
 		this.userRepository = userRepository;
+		this.mapper = mapper;
 		this.encoder = encoder;
 		this.jwtService = jwtService;
 	}
 	
-	public Map<String, String> execute(UserAuthRequestDTO request) {
+	public UserAuthResponseDTO execute(UserAuthRequestDTO request) {
 		
 		Users users = userRepository.findByEmail(request.email())
 				.orElseThrow(() -> new UserNotFoundException("Usuário não encontrado"));
@@ -39,7 +41,7 @@ public class UserLogin {
 				users.getRole()
 		);
 		
-		return Map.of("Token", token);
+		return mapper.toResponseDTO(token);
 	}
 	
 }

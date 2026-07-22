@@ -37,7 +37,19 @@ public class Users {
 	@Column(updatable = false)
 	private LocalDateTime creationDate;
 	
-	public Users() {
+	protected Users() {
+		
+	}
+	
+	public Users(String email, String password) {
+		
+		if (email == null || email.isBlank()) {
+			throw new IllegalArgumentException("Email inválido");
+		}
+		
+		this.email = email;
+		setPassword(password);
+		this.role = Role.USER;
 		this.status = UserStatus.ACTIVE;
 	}
 	
@@ -53,32 +65,13 @@ public class Users {
 	
 	public LocalDateTime getCreationDate() {return creationDate;}
 	
-	
-	public void setEmail(String email) {
-		
-		if (email == null || email.isBlank()) {
-			throw new IllegalArgumentException("Username inválido");
-		}
-		
-		this.email = email;
-	}
-	
 	public void setPassword(String password) {
 		
-		if (password ==null || password.isBlank()) {
+		if (password == null || password.isBlank()) {
 			throw new IllegalArgumentException("Password inválido");
 		}
 		
 		this.password = password;
-	}
-	
-	public void setRole(Role role) {
-		
-		if (role != Role.USER) {
-			throw new IllegalArgumentException("Role inválido");
-		}
-		
-		this.role = role;
 	}
 	
 	public void inactiveUser() {
@@ -100,15 +93,3 @@ public class Users {
 	}
 	
 }
-
-
-
-
-
-
-
-
-
-
-
-

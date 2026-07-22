@@ -18,6 +18,7 @@ import com.cursobackend.aula6.domain.orders.model.Orders;
 import com.cursobackend.aula6.domain.orders.policy.CreditDecision;
 import com.cursobackend.aula6.domain.orders.policy.CreditPolicy;
 import com.cursobackend.aula6.domain.orders.repository.OrderRepository;
+import com.cursobackend.aula6.domain.user.model.Users;
 
 public class AnalyzeOrderTest {
 	
@@ -42,7 +43,9 @@ public class AnalyzeOrderTest {
 	@Test
 	void ShouldApproveOrderWhenScoreAbove800() {
 		
-		Orders orders = new Orders();
+		Users users = new Users("user@email.com", "123456");
+		
+		Orders orders = new Orders(1500.0, users);
 		
 		when(orderRepository.findById(1L)).thenReturn(Optional.of(orders));
 		
@@ -59,6 +62,3 @@ public class AnalyzeOrderTest {
 	}
 	
 }
-
-
-

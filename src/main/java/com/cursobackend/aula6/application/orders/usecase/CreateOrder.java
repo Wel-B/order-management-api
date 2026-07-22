@@ -46,10 +46,7 @@ public class CreateOrder {
 
 		log.info("Creating the order | amount = {} |", dto.amount());
 		
-		Orders orders = new Orders();
-		orders.setAmount(dto.amount());
-		
-		orders.setUser(users);
+		Orders orders = new Orders(dto.amount(), users);
 		
 		orderRepository.save(orders);
 		

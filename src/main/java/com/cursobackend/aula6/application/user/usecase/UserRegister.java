@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.cursobackend.aula6.application.user.dto.UserAuthRequestDTO;
 import com.cursobackend.aula6.domain.user.exception.DuplicateEmailException;
-import com.cursobackend.aula6.domain.user.model.Role;
 import com.cursobackend.aula6.domain.user.model.Users;
 import com.cursobackend.aula6.domain.user.repository.UserRepository;
 
@@ -26,10 +25,7 @@ public class UserRegister {
 			throw new DuplicateEmailException("Email já cadastrado");
 		}
 		
-		Users users = new Users();
-		users.setEmail(request.email());
-		users.setPassword(encoder.encode(request.password()));
-		users.setRole(Role.USER);
+		Users users = new Users(request.email(), encoder.encode(request.password()));
 		
 		userRepository.save(users);	
 	}

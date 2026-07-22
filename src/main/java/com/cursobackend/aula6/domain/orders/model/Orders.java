@@ -40,7 +40,22 @@ public class Orders {
 	@Column(updatable = false)
 	private LocalDateTime creationDate;
 	
-	public Orders() {
+	protected Orders() {
+		
+	}
+	
+	public Orders(Double amount, Users users) {
+		
+		if(amount == null || amount <= 0) {
+			throw new IllegalArgumentException("Valor inválido");
+		}
+		
+		if(users == null) {
+			throw new IllegalArgumentException("Usuário é obrigatório");
+		}
+		
+		this.amount = amount;
+		this.users = users;
 		this.status = OrderStatus.REQUESTED;
 	}
 	
@@ -96,14 +111,6 @@ public class Orders {
 			throw new InvalidStateException("Pedido não pode ser cancelado");
 		}
 		status = OrderStatus.CANCELED;
-	}
-	
-	public void setAmount(Double amount) {
-		this.amount = amount;
-	}
-
-	public void setUser(Users users) {
-		this.users = users;
 	}
 	
 }
