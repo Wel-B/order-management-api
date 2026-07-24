@@ -30,10 +30,11 @@ public class SecurityConfig {
 		.csrf(csrf -> csrf.disable())
 		.headers(headers -> headers.frameOptions(frame -> frame.disable()))
 		.authorizeHttpRequests(auth -> auth
-				.requestMatchers("/auth/register").permitAll()
-				.requestMatchers("/auth/login").permitAll()
-				.requestMatchers("/actuator/health").permitAll()
-				.requestMatchers("/h2-console/**").permitAll()
+				.requestMatchers(
+						"/auth/register", 
+						"/auth/login", 
+						"/actuator/health"
+				).permitAll()
 				.anyRequest().authenticated()
 		)
 		.exceptionHandling(ex -> ex
