@@ -1,6 +1,5 @@
 package com.cursobackend.aula6.presentation.controller;
 
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,7 +10,6 @@ import com.cursobackend.aula6.application.user.usecase.UserInactive;
 
 import jakarta.validation.Valid;
 
-@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/users")
 public class UserController {
