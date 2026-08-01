@@ -10,14 +10,14 @@ import java.util.Optional;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import com.cursobackend.aula6.application.orders.dto.OrderResponseDTO;
-import com.cursobackend.aula6.application.orders.mapper.OrderMapper;
-import com.cursobackend.aula6.application.orders.usecase.AnalyzeOrder;
+import com.cursobackend.aula6.application.order.dto.OrderResponseDTO;
+import com.cursobackend.aula6.application.order.mapper.OrderMapper;
+import com.cursobackend.aula6.application.order.usecase.AnalyzeOrder;
 import com.cursobackend.aula6.application.service.CreditScoreProvider;
-import com.cursobackend.aula6.domain.orders.model.Orders;
-import com.cursobackend.aula6.domain.orders.policy.CreditDecision;
-import com.cursobackend.aula6.domain.orders.policy.CreditPolicy;
-import com.cursobackend.aula6.domain.orders.repository.OrderRepository;
+import com.cursobackend.aula6.domain.order.model.Orders;
+import com.cursobackend.aula6.domain.order.policy.CreditDecision;
+import com.cursobackend.aula6.domain.order.policy.CreditPolicy;
+import com.cursobackend.aula6.domain.order.repository.OrderRepository;
 import com.cursobackend.aula6.domain.user.model.Users;
 
 public class AnalyzeOrderTest {

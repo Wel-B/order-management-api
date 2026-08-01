@@ -1,5 +1,6 @@
 package com.cursobackend.aula6.domain.user.repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,5 +18,7 @@ public interface UserRepository {
 	List<Users> findByStatus(UserStatus status);
 	
 	List<Users> findAll();
+	
+	List<Users> findInactiveUsers(LocalDateTime limitDate);
 	
 }

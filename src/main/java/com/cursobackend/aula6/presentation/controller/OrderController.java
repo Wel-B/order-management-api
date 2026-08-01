@@ -15,24 +15,24 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.cursobackend.aula6.application.orders.dto.OrderRequestDTO;
-import com.cursobackend.aula6.application.orders.dto.OrderResponseDTO;
-import com.cursobackend.aula6.application.orders.usecase.AnalyzeOrder;
-import com.cursobackend.aula6.application.orders.usecase.CancelOrder;
-import com.cursobackend.aula6.application.orders.usecase.CreateOrder;
-import com.cursobackend.aula6.application.orders.usecase.SearchOrderByStatus;
-import com.cursobackend.aula6.domain.orders.model.OrderStatus;
+import com.cursobackend.aula6.application.order.dto.OrderRequestDTO;
+import com.cursobackend.aula6.application.order.dto.OrderResponseDTO;
+import com.cursobackend.aula6.application.order.usecase.AnalyzeOrder;
+import com.cursobackend.aula6.application.order.usecase.CancelOrder;
+import com.cursobackend.aula6.application.order.usecase.CreateOrder;
+import com.cursobackend.aula6.application.order.usecase.SearchOrderByStatus;
+import com.cursobackend.aula6.domain.order.model.OrderStatus;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/order")
 public class OrderController {
 
-	private CreateOrder createOrder;
-	private AnalyzeOrder analyzeOrder;
-	private CancelOrder cancelOrder;
-	private SearchOrderByStatus searchByStatus;
+	private final CreateOrder createOrder;
+	private final AnalyzeOrder analyzeOrder;
+	private final CancelOrder cancelOrder;
+	private final SearchOrderByStatus searchByStatus;
 	
 	public OrderController(CreateOrder createOrder, AnalyzeOrder analyzeOrder, CancelOrder cancelOrder,
 			SearchOrderByStatus searchByStatus) {

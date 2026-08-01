@@ -35,5 +35,5 @@ build/
 .env.dev
 .env.prod
 Dockerfile
-testdb.mv.db
-testdb.trace.db
+devtestdb.mv.db
+devtestdb.trace.db

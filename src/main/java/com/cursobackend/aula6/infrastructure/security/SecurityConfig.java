@@ -33,7 +33,8 @@ public class SecurityConfig {
 				.requestMatchers(
 						"/auth/register", 
 						"/auth/login", 
-						"/actuator/health"
+						"/actuator/health",
+						"/h2-console/**"
 				).permitAll()
 				.anyRequest().authenticated()
 		)

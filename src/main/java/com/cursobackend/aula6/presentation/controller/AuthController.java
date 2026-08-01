@@ -10,8 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.cursobackend.aula6.application.user.dto.UserAuthRequestDTO;
 import com.cursobackend.aula6.application.user.dto.UserAuthResponseDTO;
-import com.cursobackend.aula6.application.user.usecase.UserLogin;
-import com.cursobackend.aula6.application.user.usecase.UserRegister;
+import com.cursobackend.aula6.application.user.usecase.LoginUser;
+import com.cursobackend.aula6.application.user.usecase.RegisterUser;
 
 import jakarta.validation.Valid;
 
@@ -19,25 +19,25 @@ import jakarta.validation.Valid;
 @RequestMapping("/auth")
 public class AuthController {
 
-	private UserRegister register;
-	private UserLogin login;
+	private final RegisterUser registerUser;
+	private final LoginUser loginUser;
 	
-	public AuthController(UserRegister register, UserLogin login) {
-		this.login = login;
-		this.register = register;
+	public AuthController(RegisterUser registerUser, LoginUser loginUser) {
+		this.loginUser = loginUser;
+		this.registerUser = registerUser;
 	}
 	
 	@PostMapping("/register")
 	@ResponseStatus(HttpStatus.CREATED)
 	public void register(@Valid @RequestBody UserAuthRequestDTO request) {
 		
-		register.execute(request);
+		registerUser.execute(request);
 	}
 	
 	@PostMapping("/login")
 	public ResponseEntity<UserAuthResponseDTO> login(@Valid @RequestBody UserAuthRequestDTO request) {
 		
-		return ResponseEntity.ok(login.execute(request));
+		return ResponseEntity.ok(loginUser.execute(request));
 	}
 	
 	@PostMapping("/logout")

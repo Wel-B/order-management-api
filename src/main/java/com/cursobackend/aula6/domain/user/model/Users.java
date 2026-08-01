@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.cursobackend.aula6.domain.order.exception.InvalidStateException;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -35,7 +37,9 @@ public class Users {
 	
 	@CreationTimestamp
 	@Column(updatable = false)
-	private LocalDateTime creationDate;
+	private LocalDateTime createdAt;
+	
+	private LocalDateTime statusChangedAt;
 	
 	protected Users() {
 		
@@ -63,7 +67,9 @@ public class Users {
 	
 	public UserStatus getStatus() {return status;}
 	
-	public LocalDateTime getCreationDate() {return creationDate;}
+	public LocalDateTime getCreationDate() {return createdAt;}
+	
+	public LocalDateTime getStatusChangedAt() {return statusChangedAt;}
 	
 	public void setPassword(String password) {
 		
@@ -74,22 +80,34 @@ public class Users {
 		this.password = password;
 	}
 	
-	public void inactiveUser() {
+	public void deactivateUser() {
 		
 		if (status != UserStatus.ACTIVE) {
-			throw new IllegalStateException("Estado inválido");
+			throw new InvalidStateException("Não pode desactivar uma conta inactiva");
 		}
 		
 		status = UserStatus.INACTIVE;
+		statusChangedAt = LocalDateTime.now();
+	}
+	
+	public void activateUser() {
+		
+		if (status != UserStatus.INACTIVE) {
+			throw new InvalidStateException("Não pode activar uma conta activa");
+		}
+		
+		status = UserStatus.ACTIVE;
+		statusChangedAt = null;
 	}
 	
 	public void deleteUser() {
 		
 		if (status != UserStatus.INACTIVE) {
-			throw new IllegalStateException("Estado inválido");
+			throw new InvalidStateException("Não pode eliminar a conta");
 		}
 		
 		status = UserStatus.DELETED;
+		statusChangedAt = LocalDateTime.now();
 	}
 	
 }

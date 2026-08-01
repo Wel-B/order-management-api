@@ -9,12 +9,12 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.cursobackend.aula6.application.orders.dto.ExceptionErrorResponse;
-import com.cursobackend.aula6.application.orders.dto.FieldValidationErrorResponse;
-import com.cursobackend.aula6.application.orders.dto.ValidationErrorResponse;
-import com.cursobackend.aula6.domain.orders.exception.ForbiddenActionException;
-import com.cursobackend.aula6.domain.orders.exception.InvalidStateException;
-import com.cursobackend.aula6.domain.orders.exception.OrderNotFoundException;
+import com.cursobackend.aula6.application.order.dto.ExceptionErrorResponse;
+import com.cursobackend.aula6.application.order.dto.FieldValidationErrorResponse;
+import com.cursobackend.aula6.application.order.dto.ValidationErrorResponse;
+import com.cursobackend.aula6.domain.order.exception.ForbiddenActionException;
+import com.cursobackend.aula6.domain.order.exception.InvalidStateException;
+import com.cursobackend.aula6.domain.order.exception.OrderNotFoundException;
 import com.cursobackend.aula6.domain.user.exception.DuplicateEmailException;
 import com.cursobackend.aula6.domain.user.exception.InvalidCredentialsException;
 import com.cursobackend.aula6.domain.user.exception.UserNotFoundException;

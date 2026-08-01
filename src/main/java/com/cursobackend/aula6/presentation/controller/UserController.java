@@ -6,24 +6,33 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.cursobackend.aula6.application.user.dto.UserAuthRequestDTO;
-import com.cursobackend.aula6.application.user.usecase.UserInactive;
+import com.cursobackend.aula6.application.user.usecase.ActivateUser;
+import com.cursobackend.aula6.application.user.usecase.DeactivateUser;
 
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/user")
 public class UserController {
 	
-	private UserInactive userInactive;
+	private final DeactivateUser deactivateUser;
+	private final ActivateUser activateUser;
 	
-	public UserController(UserInactive userInactive) {
-		this.userInactive = userInactive;
+	public UserController(DeactivateUser deactivateUser, ActivateUser activateUser) {
+		this.deactivateUser = deactivateUser;
+		this.activateUser = activateUser;
 	}
 	
-	@PatchMapping("/inactive")
+	@PatchMapping("/deactivate")
 	public void delete(@Valid @RequestBody UserAuthRequestDTO request) {
 		
-		userInactive.execute(request);
+		deactivateUser.execute(request);
+	}
+	
+	@PatchMapping("/activate")
+	public void activate(@Valid @RequestBody UserAuthRequestDTO request) {
+		
+		activateUser.execute(request);
 	}
 	
 }
