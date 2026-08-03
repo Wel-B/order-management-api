@@ -30,7 +30,7 @@ class OrderControllerIntegrationTest extends IntegrationTestSupport {
 				
 				""";
 		
-		String response = mockMvc.perform(post("/orders")
+		String response = mockMvc.perform(post("/order")
 				.header("Authorization", "Bearer " + token)
 				.contentType(MediaType.APPLICATION_JSON)
 				.content(json))
@@ -43,7 +43,7 @@ class OrderControllerIntegrationTest extends IntegrationTestSupport {
 		
 		Long id = idNumber.longValue();
 		  
-		mockMvc.perform(patch("/orders/" + id + "/cancel")
+		mockMvc.perform(patch("/order/" + id + "/cancel")
 				.header("Authorization", "Bearer " + token))
 				.andExpect(status().isOk())
 				.andExpect(jsonPath("$.status").exists());
